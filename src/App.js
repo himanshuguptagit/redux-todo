@@ -1,44 +1,28 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
 import {connect} from 'react-redux';
+
+import {addToDoAction, removeToDoAction, toggleToDoAction} from './actions/todoActions';
+
+import TodoList from './components/containers/TodoList';
+import AddTodo from './components/containers/AddTodo';
+
 
 class App extends Component {
 
   constructor(props){
     super(props);
-
-    this.onAddClick = this.onAddClick.bind(this);
-  }
-
-  onAddClick(){
-
-    let item  = {text: "hello world: "+this.props.todoList.length+"#"};
-    this.props.onAddClick(item);
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <button onClick={this.onAddClick}>hello</button>
-
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <AddTodo />
+          <TodoList />
+          <button onClick={this.onAddClick}>add</button>
+          App
           <p>{JSON.stringify(this.props)}</p>
-
-            Learn React:
-          </a>
-        </header>
       </div>
     );
   }
@@ -57,11 +41,3 @@ const mapDispatchToProps = function(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
-
-
-const addToDoAction = function(item){
-  return ({
-    type: "ADD_TODO",
-    payload: item
-  });
-}
